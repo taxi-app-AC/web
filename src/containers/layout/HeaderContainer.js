@@ -21,11 +21,15 @@ export class HeaderContainer extends React.Component
                     label: 'Requests',
                     url: '/requests'
                 }
-            ]
+            ],
+            login: {
+                label: 'Login',
+                url: '/login'
+            }
         }
     }
 
     render() {
-       return  <HeaderComponent nav={this.state.nav}></HeaderComponent>
+       return  <HeaderComponent nav={this.state.nav} login={this.state.login}></HeaderComponent>
     }
 }

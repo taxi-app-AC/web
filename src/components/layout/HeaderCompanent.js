@@ -24,13 +24,18 @@ import { Link } from 'react-router-dom';
                             props.nav.map((value, i) => {
 
                                 return (
-                                    <li className="nav-item active" key={i}>
+                                    <li className="nav-item" key={i}>
                                         <Link className="nav-link" to={value.url}>{value.label} </Link>
                                     </li>
                                 )
                             })
                        }
 
+                   </ul>
+                   <ul className='navbar-nav mr-auto'>
+                       <li className='nav-item'>
+                           <Link className='nav-link' to={props.login.url}>{props.login.label}</Link>
+                       </li>
                    </ul>
                    <span className="navbar-text">
                         Navbar text with an inline element

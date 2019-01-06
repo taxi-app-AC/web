@@ -16,10 +16,12 @@ export default class UsersContainer extends React.Component {
 
     componentDidMount() {
 
+        let user = JSON.parse(localStorage.getItem('user'));
+
         Axios.get(
             'http://localhost:3000/api/user',
             {
-                headers: {"Authorization" : `Bearer ${localStorage.getItem('authToken')}`}
+                headers: {"Authorization" : `Bearer ${user.token}`}
             }
             ).then( (res) => {
 
@@ -63,7 +65,7 @@ export default class UsersContainer extends React.Component {
             }];
 
             return (
-                <UsersComponent data={this.state.items.data} columns={columns}/>
+                <UsersComponent data={items.data} columns={columns}/>
             );
         }
     }
