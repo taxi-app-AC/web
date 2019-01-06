@@ -32,13 +32,8 @@ import { Link } from 'react-router-dom';
                        }
 
                    </ul>
-                   <ul className='navbar-nav mr-auto'>
-                       <li className='nav-item'>
-                           <Link className='nav-link' to={props.login.url}>{props.login.label}</Link>
-                       </li>
-                   </ul>
                    <span className="navbar-text">
-                        Navbar text with an inline element
+                       <Link className='nav-link header-logout-link' to={props.logout.url}>{props.logout.label}</Link>
                     </span>
                </div>
            </nav>

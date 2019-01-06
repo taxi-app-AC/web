@@ -10,7 +10,8 @@ import HomeContainer from './containers/home/HomeContainer';
 import UsersContainer from './containers/user/UsersContainer';
 import UserContainer from './containers/user/UserContainer';
 import RequestsContainer from './containers/request/RequestsContainer';
-import Login from './containers/auth/LoginContainer';
+import LoginContainer from './containers/auth/LoginContainer';
+import LogoutContainer from './containers/auth/LogoutContainer';
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
 
@@ -26,12 +27,10 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
             <Route {...rest} render={(props) => (
 
                 auth ? <Redirect to='/'/>
-                    : <Login {...props}/>
+                    : <LoginContainer {...props}/>
             )}/>
         );
-    }
-
-    else {
+    } else {
         return (
             <Route {...rest} render={(props) => (
 
@@ -48,7 +47,8 @@ const Routes = () => (
             <PrivateRoute path='/users' component={UsersContainer} />
             <PrivateRoute path='/user/:id' component={UserContainer} />
             <PrivateRoute path='/requests' component={RequestsContainer} />
-            <PrivateRoute path='/login' component={Login} />
+            <PrivateRoute path='/logout' component={LogoutContainer} />
+            <PrivateRoute path='/login' component={LoginContainer} />
         </Switch>
 )
 
