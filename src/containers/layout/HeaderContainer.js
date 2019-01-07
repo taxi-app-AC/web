@@ -11,20 +11,24 @@ export class HeaderContainer extends React.Component
             nav: [
                 {
                     label: 'Home',
-                    url: '/'
+                    url: '/',
+                    active: 1
                 },
                 {
                     label: 'Users',
-                    url: '/users'
+                    url: '/users',
+                    active: 0
                 },
                 {
                     label: 'Requests',
-                    url: '/requests'
+                    url: '/requests',
+                    active: 0
                 }
             ],
             logout: {
                 label: 'Logout',
-                url: '/logout'
+                url: '/logout',
+                active: 0
             }
         }
     }

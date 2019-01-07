@@ -24,7 +24,7 @@ import { Link } from 'react-router-dom';
                             props.nav.map((value, i) => {
 
                                 return (
-                                    <li className="nav-item" key={i}>
+                                    <li className={value.active ? 'nav-item active' : 'nav-item'} key={i}>
                                         <Link className="nav-link" to={value.url}>{value.label} </Link>
                                     </li>
                                 )

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import Axios from 'axios';
 import UsersComponent from '../../components/user/UsersComponent';
@@ -57,7 +57,14 @@ export default class UsersContainer extends React.Component {
             }, {
                 Header: 'Active',
                 accessor: 'active',
-                Cell: props => (props.value == 1) ? 'active' : 'deactive'
+                Cell: props => {
+                    return (
+                        <span className="switch">
+                          <input type="checkbox" className="switch" id="switch-id" />
+                          <label htmlFor="switch-id">Small switch</label>
+                        </span>
+                    );
+                }
             }, {
                 Header: 'Driver',
                 accessor: 'driver',
