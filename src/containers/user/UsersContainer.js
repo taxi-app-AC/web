@@ -14,7 +14,7 @@ class UsersContainer extends React.Component {
             error: null,
             isLoaded: false,
             items: []
-        }
+        };
     }
 
     componentDidMount() {
@@ -41,10 +41,6 @@ class UsersContainer extends React.Component {
             });
     }
 
-    // handleChangeActivity() {
-    //
-    // }
-
     render() {
         const { err, isLoaded, items } = this.state;
         if (err) {
@@ -54,26 +50,31 @@ class UsersContainer extends React.Component {
         } else {
 
             const columns = [{
+                id: 'userName',
                 Header: 'User Name',
-                accessor: 'name', // String-based value accessors!
+                accessor: 'name',
                 Cell: props => <Link to={'/user/' + props.original._id}>{props.value}</Link>
             }, {
+                id: 'userPhone',
                 Header: 'Phone',
                 accessor: 'phone',
                 Cell: props => <span className='number'>{props.value}</span> // Custom cell components!
             }, {
+                id: 'userActive',
                 Header: 'Activity',
                 accessor: 'active',
                 Cell: props => {
-                    return <SwitchComponent checked={props.value} />;
-                }
+                    return <SwitchComponent userId={props.original._id} checked={props.value} />;
+                },
+                // style: props => {return 'background: red'}
             }, {
+                id: 'userDriver',
                 Header: 'Driver',
                 accessor: 'driver',
                 Cell: props => (props.value === 1) ? 'driver' : 'user'
             }];
 
-            return <UsersComponent data={items.data} columns={columns}/>;
+            return <UsersComponent data={items.data} columns={columns} getTrProps={this.getTrProps}/>;
         }
     }
 }

@@ -4,7 +4,7 @@ import 'react-table/react-table.css';
 
 const UsersComponent = (props) => {
 
-  return <ReactTable data={props.data} columns={props.columns} />;
+  return <ReactTable data={props.data} columns={props.columns} getTrProps={props.getTrProps}/>;
 };
 
 export default UsersComponent;

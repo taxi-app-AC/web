@@ -14,11 +14,13 @@ export default class UserContainer extends React.Component {
     }
 
     componentDidMount() {
-console.log();
+
+        let user = JSON.parse(localStorage.getItem('user'));
+
         Axios.get(
             'http://localhost:3000/api/user/' + this.props.match.params.id,
             {
-                headers: {"Authorization" : `Bearer ${localStorage.getItem('authToken')}`}
+                headers: {"Authorization" : `Bearer ${user.token}`}
             }
             )
             .then( (res) => {
