@@ -2,9 +2,10 @@ import React, { Component } from "react";
 import Axios from 'axios';
 import { withRouter   } from 'react-router-dom';
 import '../../media/css/Login.css';
-import LoginComponent from '../../components/auth/LoginCompanent';
+import LoginComponent from '../../components/auth/LoginComponent';
 import PropTypes from 'prop-types';
 import Grid from '@material-ui/core/Grid';
+import LinearIndeterminate from '../../components/common/LinearIndeterminateComponent';
 
 class LoginContainer extends Component {
 
@@ -14,7 +15,8 @@ class LoginContainer extends Component {
             phone: '',
             password: '',
             showErr: false,
-            redirect: false
+            redirect: false,
+            isLoaded: false
         };
 
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -34,8 +36,12 @@ class LoginContainer extends Component {
     };
 
     handleSubmit = async event => {
-console.log('hee')
+
         event.preventDefault();
+
+        this.setState({
+            isLoaded: true
+        });
 
         try {
 
@@ -62,7 +68,8 @@ console.log('hee')
                     switch (val.status) {
                         case 1:
                             this.setState({
-                                showErr: true
+                                showErr: true,
+                                isLoaded: false
                             });
                             break;
                     }
@@ -73,25 +80,28 @@ console.log('hee')
 
     render() {
         return (
-            <Grid
-                container
-                spacing={0}
-                direction="column"
-                alignItems="center"
-                justify="center"
-                style={{ minHeight: '100vh' }}
-            >
+            <div>
+                {this.state.isLoaded ? <LinearIndeterminate /> : ''}
+                <Grid
+                    container
+                    spacing={0}
+                    direction="column"
+                    alignItems="center"
+                    justify="center"
+                    style={{ minHeight: '99vh' }}
+                >
 
-                <Grid item xs={3}>
-                    <LoginComponent
-                        userDetail={this.state}
-                        handleSubmit={this.handleSubmit}
-                        handleChange={this.handleChange}
-                        validateForm={this.validateForm}
-                    />
+                    <Grid item xs={3}>
+                        <LoginComponent
+                            userDetail={this.state}
+                            handleSubmit={this.handleSubmit}
+                            handleChange={this.handleChange}
+                            validateForm={this.validateForm}
+                        />
+                    </Grid>
+
                 </Grid>
-
-            </Grid>
+            </div>
         );
     }
 }

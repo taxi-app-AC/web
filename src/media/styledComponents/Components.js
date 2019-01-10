@@ -5,7 +5,7 @@ import Button from '@material-ui/core/Button';
 
 // Header
 
-export const StyledLink = styled(Link)`
+export const StyledHeaderLink = styled(Link)`
     color: white
     &:hover {
         color: white;
@@ -16,8 +16,8 @@ export const StyledLink = styled(Link)`
 // Login Form
 
 export const StyledForm = styled.form`
-    width: ${props => props.styledProps.width || '100%'};
-    margin: ${props => props.styledProps.margin || '0'};
+    width: ${props => props.styledProps.width || undefined};
+    margin: ${props => props.styledProps.margin || undefined};
 `;
 
 export const StyledTextField = styled(TextField)`
@@ -27,4 +27,20 @@ export const StyledTextField = styled(TextField)`
 export const StyledLoginButton = styled(Button)`
     width: 100%;
     margin-top: 10px !important;
+`;
+
+export const StyledUserButton = styled(Button)`
+    font-size: 10px !important;
+    outline: none;
+    &:focus {
+        outline:none;
+    }
+`;
+
+export const StyledButtonLink = styled(Link)`
+     color: ${props => props.color || undefined};
+     &:hover {
+     color: ${props => props.color || undefined};
+        text-decoration: none;
+    }
 `;

@@ -5,7 +5,7 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
-import { StyledLink } from '../../media/styledComponents/Components';
+import { StyledHeaderLink } from '../../media/styledComponents/Components';
 
 const styles = {
     root: {
@@ -32,14 +32,14 @@ function HeaderComponent(props) {
                                 props.nav.map((value,i) => {
                                     return (
                                         <Grid item xs={1} key={i}>
-                                            <StyledLink to={value.url}>{value.label}</StyledLink>
+                                            <StyledHeaderLink to={value.url}>{value.label}</StyledHeaderLink>
                                         </Grid>
                                     );
                                 })
                             }
                         </Grid>
                     <Button color="inherit">
-                        <StyledLink to={props.logout.url}>{props.logout.label}</StyledLink>
+                        <StyledHeaderLink to={props.logout.url}>{props.logout.label}</StyledHeaderLink>
                     </Button>
                 </Toolbar>
             </AppBar>

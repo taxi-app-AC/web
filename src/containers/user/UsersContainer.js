@@ -2,9 +2,11 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Axios from 'axios';
 import PropTypes from 'prop-types';
+import Grid from '@material-ui/core/Grid';
 import LinearIndeterminate from '../../components/common/LinearIndeterminateComponent';
 import UsersComponent from '../../components/user/UsersComponent';
 import SwitchComponent from '../../components/common/SwitchComponent';
+import { StyledUserButton, StyledButtonLink } from '../../media/styledComponents/Components';
 
 class UsersContainer extends React.Component {
 
@@ -15,9 +17,12 @@ class UsersContainer extends React.Component {
             isLoaded: false,
             items: []
         };
+
+        this.handleClick = this.handleClick.bind(this);
     }
 
-    componentDidMount() {
+    getUsers() {
+        console.log('heee')
 
         let user = JSON.parse(localStorage.getItem('user'));
 
@@ -26,13 +31,13 @@ class UsersContainer extends React.Component {
             {
                 headers: {"Authorization" : `Bearer ${user.token}`}
             }
-            ).then( (res) => {
+        ).then( (res) => {
 
-                this.setState({
-                    isLoaded: true,
-                    items: res
-                });
-            })
+            this.setState({
+                isLoaded: true,
+                items: res
+            });
+        })
             .catch((err) => {
                 this.setState({
                     isLoaded: true,
@@ -40,6 +45,46 @@ class UsersContainer extends React.Component {
                 });
             });
     }
+
+    handleClick = async (userId, request) => {
+
+        this.setState({ isLoaded: false });
+
+        let statusRequest = request === 'accept' ? 1 : 0;
+
+        let user = JSON.parse(localStorage.getItem('user'));
+
+        try {
+
+            const response = await
+                Axios.get(
+                    'http://localhost:3000/api/user/request/' + userId + '/' + statusRequest,
+                    {
+                        headers: {"Authorization" : `Bearer ${user.token}`}
+                    });
+
+            // this.setState({ isLoaded: true });
+
+        } catch (error) {
+
+            // this.setState({ isLoaded: true });
+            console.log(error)
+        }
+
+    };
+
+    componentDidMount() {
+        this.getUsers()
+    }
+
+    // componentDidUpdate(prevProps, prevState) {
+    //
+    //     if (prevState.isLoaded){
+    //         console.log('heee')
+    //         this.getUsers()
+    //     }
+    //     console.log(prevState)
+    // }
 
     render() {
         const { err, isLoaded, items } = this.state;
@@ -53,7 +98,33 @@ class UsersContainer extends React.Component {
                 id: 'userName',
                 Header: 'User Name',
                 accessor: 'name',
-                Cell: props => <Link to={'/user/' + props.original._id}>{props.value}</Link>
+                Cell: props => {
+                    return (
+                        <Grid container spacing={0}>
+                            <Grid item xs={6}>
+                                <Link to={'/user/' + props.original._id}>{props.value}</Link>
+                            </Grid>
+                            {
+                                 (!props.original.view && props.original.driver)
+                                    ?   <Grid item xs={6}>
+                                             <StyledUserButton
+                                                 color="primary"
+                                                 onClick={() => this.handleClick(props.original._id, 'accept')}
+                                             >
+                                                 accept
+                                             </StyledUserButton>
+                                             <StyledUserButton
+                                                 color="secondary"
+                                                 onClick={() => this.handleClick(props.original._id, 'reject')}
+                                             >
+                                                 decline
+                                             </StyledUserButton>
+                                         </Grid>
+                                    : ''
+                            }
+                        </Grid>
+                    );
+                }
             }, {
                 id: 'userPhone',
                 Header: 'Phone',
@@ -65,8 +136,7 @@ class UsersContainer extends React.Component {
                 accessor: 'active',
                 Cell: props => {
                     return <SwitchComponent userId={props.original._id} checked={props.value} />;
-                },
-                // style: props => {return 'background: red'}
+                }
             }, {
                 id: 'userDriver',
                 Header: 'Driver',

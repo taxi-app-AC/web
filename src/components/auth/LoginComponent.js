@@ -37,14 +37,14 @@ const LoginComponent = (props) => {
                    label="Password"
                    margin="dense"
                    variant="outlined"
-               >
-                   {props.userDetail.showErr ? <div className='invalid_feedback'>Incorrect password or phone</div> : ''}
-               </StyledTextField>
+               />
+               {props.userDetail.showErr ? <div className='invalid_feedback'>Incorrect password or phone</div> : ''}
            </div>
            <StyledLoginButton
                disabled={!props.validateForm(props)}
                variant="contained"
                color="primary"
+               type="submit"
            >Login</StyledLoginButton>
        </StyledForm>
    )

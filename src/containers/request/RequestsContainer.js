@@ -1,8 +1,8 @@
 import React from 'react';
-import RequestsComponent from '../../components/request/RequestsComponent';
 
-export default class RequestsContainer extends React.Component {
-    render() {
-        return <RequestsComponent />;
-    }
-}
+const RequestsContainer = (props) => {
+
+    return <h1>ab</h1>;
+};
+
+export default RequestsContainer;
