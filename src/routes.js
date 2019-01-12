@@ -46,7 +46,7 @@ const Routes = () => (
             <PrivateRoute exact path='/' component={HomeContainer} />
             <PrivateRoute path='/users' component={UsersContainer} />
             <PrivateRoute path='/user/:id' component={UserContainer} />
-            <PrivateRoute path='/requests' component={RequestsContainer} />
+            <PrivateRoute path='/request/:id/:accept' component={RequestsContainer} />
             <PrivateRoute path='/logout' component={LogoutContainer} />
             <PrivateRoute path='/login' component={LoginContainer} />
         </Switch>

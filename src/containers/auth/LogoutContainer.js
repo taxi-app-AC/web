@@ -1,5 +1,4 @@
 import React from 'react';
-import LoginContainer from './LoginContainer'
 import {Redirect, Route} from "react-router-dom";
 
 const LogoutContainer = (props) => {
