@@ -6,14 +6,15 @@ import LoginComponent from '../../components/auth/LoginComponent';
 import PropTypes from 'prop-types';
 import Grid from '@material-ui/core/Grid';
 import LinearIndeterminate from '../../components/common/LinearIndeterminateComponent';
+import { getLogin } from '../../actions/login';
+import { connect } from 'react-redux';
+import {getUsers} from "../../actions/user";
 
 class LoginContainer extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            phone: '',
-            password: '',
             showErr: false,
             redirect: false,
             isLoaded: false
@@ -24,13 +25,17 @@ class LoginContainer extends Component {
 
     validateForm(props) {
 
-        return props.userDetail.phone.length > 0 && props.userDetail.password.length > 0;
+        console.log(props)
+        return props.phone || props.password;
     }
 
     handleChange = event => {
 
+        this.props.getLogin({
+            [event.target.name]: event.target.value
+        });
+
         this.setState({
-            [event.target.name]: event.target.value,
             showErr: false
         });
     };
@@ -47,14 +52,20 @@ class LoginContainer extends Component {
 
             const response = await
                 Axios.post('http://localhost:3000/api/auth/login', {
-                    phone: this.state.phone,
-                    password: this.state.password,
+                    phone: this.props.login.phone,
+                    password: this.props.login.password,
                 });
 
             if (response.data.data.auth) {
 
                 let user = { token: response.data.data.token };
                 localStorage.setItem('user', JSON.stringify(user));
+
+                this.props.getLogin({
+                    password: 'abbas'
+                })
+
+                console.log(this.props)
 
                 this.props.history.push("/");
             }
@@ -94,6 +105,7 @@ class LoginContainer extends Component {
                     <Grid item xs={3}>
                         <LoginComponent
                             userDetail={this.state}
+                            inputsValue={this.props.login}
                             handleSubmit={this.handleSubmit}
                             handleChange={this.handleChange}
                             validateForm={this.validateForm}
@@ -113,4 +125,26 @@ LoginContainer.propTypes = {
     userDetail: PropTypes.object,
 };
 
-export default withRouter(LoginContainer);
+
+const mapDispathcToProps = (dispatch) => {
+
+    return {
+        getLogin: (information) => {
+            dispatch(getLogin(information))
+        }
+    }
+};
+
+const mapStateToProps = (state) => {
+
+    console.log(state)
+
+    return {
+        login: {
+            phone: state.user.phone,
+            password: state.user.password
+        }
+    }
+};
+
+export default connect(mapStateToProps, mapDispathcToProps)(withRouter(LoginContainer));

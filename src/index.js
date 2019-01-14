@@ -16,7 +16,7 @@ const finalCreateStore = compose(
 const store = finalCreateStore(rootReducer)
 
 store.subscribe(() => {
-    console.log(store.getState());
+    localStorage.setItem('redux-store', JSON.stringify(store.getState()))
 })
 
 ReactDOM.render(

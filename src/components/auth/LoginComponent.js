@@ -3,7 +3,6 @@ import { StyledForm, StyledTextField, StyledLoginButton } from '../../media/styl
 
 const LoginComponent = (props) => {
 
-    console.log(props.handleSubmit)
     let StyledFormProps = {
       width: '250px',
       margin: 'auto'
@@ -20,7 +19,7 @@ const LoginComponent = (props) => {
            <label className='title-login-form'>Authorization</label>
            <div>
                <StyledTextField
-                   value={props.userDetail.phone}
+                   value={props.inputsValue.phone}
                    onChange={props.handleChange}
                    name="phone"
                    label="Phone"
@@ -30,7 +29,7 @@ const LoginComponent = (props) => {
            </div>
            <div>
                <StyledTextField
-                   value={props.userDetail.password}
+                   value={props.inputsValue.password}
                    onChange={props.handleChange}
                    type="password"
                    name="password"
@@ -41,7 +40,7 @@ const LoginComponent = (props) => {
                {props.userDetail.showErr ? <div className='invalid_feedback'>Incorrect password or phone</div> : ''}
            </div>
            <StyledLoginButton
-               disabled={!props.validateForm(props)}
+               disabled={!props.validateForm(props.inputsValue)}
                variant="contained"
                color="primary"
                type="submit"
