@@ -6,9 +6,8 @@ import LoginComponent from '../../components/auth/LoginComponent';
 import PropTypes from 'prop-types';
 import Grid from '@material-ui/core/Grid';
 import LinearIndeterminate from '../../components/common/LinearIndeterminateComponent';
-import { getLogin } from '../../actions/login';
+import { getLogin } from '../../actions/auth';
 import { connect } from 'react-redux';
-import {getUsers} from "../../actions/user";
 
 class LoginContainer extends Component {
 
@@ -59,13 +58,12 @@ class LoginContainer extends Component {
             if (response.data.data.auth) {
 
                 let user = { token: response.data.data.token };
+                let userLogin = response.data.data.token;
                 localStorage.setItem('user', JSON.stringify(user));
 
                 this.props.getLogin({
-                    password: 'abbas'
+                    token: userLogin
                 })
-
-                console.log(this.props)
 
                 this.props.history.push("/");
             }
@@ -139,10 +137,20 @@ const mapStateToProps = (state) => {
 
     console.log(state)
 
-    return {
-        login: {
-            phone: state.user.phone,
-            password: state.user.password
+    if (state.user.hasOwnProperty('token')){
+        return {
+            login: {
+                phone: state.user.phone,
+                password: state.user.password,
+                token: state.user.token
+            }
+        }
+    } else {
+        return {
+            login: {
+                phone: state.user.phone,
+                password: state.user.password
+            }
         }
     }
 };
