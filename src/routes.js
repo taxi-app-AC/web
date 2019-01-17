@@ -50,6 +50,6 @@ const Routes = () => (
             <PrivateRoute path='/logout' component={LogoutContainer} />
             <PrivateRoute path='/login' component={LoginContainer} />
         </Switch>
-)
+);
 
-export default Routes
+export default Routes;

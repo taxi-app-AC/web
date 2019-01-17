@@ -1,23 +1,22 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter } from 'react-router-dom'
+import { BrowserRouter } from 'react-router-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import { Provider } from 'react-redux'
-import { createStore } from 'redux'
-import { compose } from 'redux'
-import rootReducer from './reducers'
+import { Provider } from 'react-redux';
+import { compose, createStore } from 'redux';
+import rootReducer from './reducers';
 
 const finalCreateStore = compose(
     window.devToolsExtension ? window.devToolsExtension() : f => f
-)(createStore)
+)(createStore);
 
-const store = finalCreateStore(rootReducer)
+const store = finalCreateStore(rootReducer);
 
 store.subscribe(() => {
     localStorage.setItem('redux-store', JSON.stringify(store.getState()))
-})
+});
 
 ReactDOM.render(
     <Provider store={store}>

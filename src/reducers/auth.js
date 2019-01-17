@@ -1,7 +1,7 @@
 const store = JSON.parse(localStorage.getItem('redux-store')) || {};
-const initialState = store.hasOwnProperty('user') ? store.user : {};
+const initialState = store.hasOwnProperty('user') ? store.login : {};
 
-const Login = (state = initialState, action) => {
+const Auth = (state = initialState, action) => {
 
     switch (action.type) {
         case 'LOGIN':
@@ -14,4 +14,4 @@ const Login = (state = initialState, action) => {
     }
 };
 
-export default Login;
+export default Auth;

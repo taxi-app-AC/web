@@ -3,17 +3,37 @@ import { Redirect, Route } from "react-router-dom";
 import { connect } from 'react-redux';
 import { Logout } from '../../actions/auth';
 
-const LogoutContainer = (props) => {
+// const LogoutContainer = (props) => {
+//
+//     localStorage.removeItem('user');
+//
+//     console.log(props)
+//
+//     // this.props.logout();
+//
+//     return (
+//         <Route render={() => (
+//                 <Redirect to='/login'/>
+//         )}/>
+//     );
+// };
 
-    localStorage.removeItem('user');
 
-    this.props.logout();
+class LogoutContainer extends React.Component {
 
-    return (
-        <Route render={() => (
+    componentWillMount() {
+
+        localStorage.removeItem('user');
+        this.props.logout();
+    }
+
+    render () {
+        return (
+            <Route render={() => (
                 <Redirect to='/login'/>
-        )}/>
-    );
+            )}/>
+        );
+    }
 };
 
 const mapDispatchToProps = (dispatch) => {
