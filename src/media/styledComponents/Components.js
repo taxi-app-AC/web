@@ -13,7 +13,7 @@ export const StyledHeaderLink = styled(Link)`
     }
 `;
 
-// Login Form
+// Auth Form
 
 export const StyledForm = styled.form`
     width: ${props => props.styledProps.width || undefined};

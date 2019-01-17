@@ -7,8 +7,8 @@ import LinearIndeterminate from '../../components/common/LinearIndeterminateComp
 import UsersComponent from '../../components/user/UsersComponent';
 import SwitchComponent from '../../components/common/SwitchComponent';
 import { StyledUserButton, StyledButtonLink } from '../../media/styledComponents/Components';
-import {getUsers} from "../../actions";
-import { connect } from 'react-redux'
+import {getUsers} from "../../actions/user";
+import { connect } from 'react-redux';
 
 class UsersContainer extends React.Component {
 
@@ -23,13 +23,23 @@ class UsersContainer extends React.Component {
     }
 
     getUsers() {
-        console.log('heee')
 
         let user = JSON.parse(localStorage.getItem('user'));
+        let query = `query{
+                        users{
+                            id
+                            name
+                            phone
+                            active
+                            driver
+                            view
+                        }
+                     }`;
 
-        Axios.get(
-            'http://localhost:3000/api/user',
+        Axios.post(
+            'http://localhost:3000/graphql',
             {
+                query: query,
                 headers: {"Authorization" : `Bearer ${user.token}`}
             }
         ).then( (res) => {
@@ -40,16 +50,15 @@ class UsersContainer extends React.Component {
 
             console.log(res);
 
-            this.props.getUsers(res.data);
+            this.props.getUsers(res.data.data.users);
 
-        })
-            .catch((err) => {
-                console.log(err);
-                this.setState({
-                    isLoaded: true,
-                    err
-                });
+        }).catch((err) => {
+            console.log(err);
+            this.setState({
+                isLoaded: true,
+                err
             });
+        });
     }
 
     handleClick = async (userId, request) => {
@@ -106,7 +115,6 @@ class UsersContainer extends React.Component {
                 accessor: 'name',
                 Cell: props => {
 
-                    console.log('column: ',props);
                     return (
                         <Grid container spacing={0}>
                             <Grid item xs={6}>
@@ -152,12 +160,8 @@ class UsersContainer extends React.Component {
                 Cell: props => (props.value === 1) ? 'driver' : 'user'
             }];
 
-            console.log('render ',this.props.users);
-            console.log('render ',Object.keys(this.props.users).length);
-
-            // return <h1>32</h1>;
             if(Object.keys(this.props.users).length) {
-                return <UsersComponent data={Object.values(this.props.users)} columns={columns} getTrProps={this.getTrProps}/>;
+                return <UsersComponent data={Object.values(this.props.users)} columns={columns} />;
             }
             else {
                 return <h1>loading...</h1>
@@ -178,15 +182,13 @@ const mapDispathcToProps = (dispatch) => {
             dispatch(getUsers(users))
         }
     }
-}
+};
 
 const mapStateToProps = (state) => {
-
-    console.log(state.users);
 
     return {
         users: state.users
     }
-}
+};
 
 export default connect(mapStateToProps, mapDispathcToProps)(UsersContainer);
