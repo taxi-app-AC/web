@@ -78,7 +78,7 @@ class UsersContainer extends React.Component {
                         headers: {"Authorization" : `Bearer ${user.token}`}
                     });
 
-            // this.setState({ isLoaded: true });
+            this.setState({ isLoaded: true });
 
         } catch (error) {
 
