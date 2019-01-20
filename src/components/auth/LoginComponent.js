@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyledForm, StyledTextField, StyledLoginButton } from '../../media/styledComponents/Components';
+import InputMask  from 'react-input-mask';
 
 const LoginComponent = (props) => {
 
@@ -16,15 +17,19 @@ const LoginComponent = (props) => {
         >
             <label className='title-login-form'>Login</label>
             <div>
-                <StyledTextField
-                    inputRef={props.inputRef.phoneInput}
-                    type="text"
-                    name="phone"
-                    label="Phone"
-                    margin="dense"
-                    variant="outlined"
-                    required={true}
-                />
+
+                    <InputMask mask="0999999999" maskChar=" " >
+                        {() => <StyledTextField
+                                inputRef={props.inputRef.phoneInput}
+                                type="text"
+                                name="phone"
+                                label="Phone"
+                                margin="dense"
+                                variant="outlined"
+                                required={true}
+                                />
+                        }
+                    </InputMask>
             </div>
             <div>
                 <StyledTextField

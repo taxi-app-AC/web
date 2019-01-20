@@ -30,19 +30,25 @@ class LoginContainer extends Component {
 
         event.preventDefault();
 
-        console.log(this.phoneInput.current.value)
-
         this.setState({
             isLoaded: true
         });
 
-        try {
+        let phone = this.phoneInput.current.value;
+        let password = this.passwordInput.current.value;
 
-            const response = await
-                Axios.post('http://localhost:3000/api/auth/login', {
-                    phone: this.phoneInput.current.value,
-                    password: this.passwordInput.current.value,
-                });
+        let mutation = `
+            mutation {
+              login ( phone: "${phone}", password: "${password}" ) {
+                  auth
+                  token
+              }
+            }
+        `;
+
+        Axios.post('http://localhost:3000/graphql', {
+            query: mutation
+        }) .then( response => {
 
             if (response.data.data.auth) {
 
@@ -56,8 +62,7 @@ class LoginContainer extends Component {
 
                 this.props.history.push("/");
             }
-
-        } catch (error) {
+        }).catch( error => {
 
             if(error.response.data.errors) {
 
@@ -73,7 +78,7 @@ class LoginContainer extends Component {
                     }
                 })
             }
-        }
+        })
     };
 
     render() {
