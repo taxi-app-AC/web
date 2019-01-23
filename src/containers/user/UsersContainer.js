@@ -1,12 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Axios from 'axios';
-import PropTypes from 'prop-types';
 import Grid from '@material-ui/core/Grid';
 import LinearIndeterminate from '../../components/common/LinearIndeterminateComponent';
 import UsersComponent from '../../components/user/UsersComponent';
 import SwitchComponent from '../../components/common/SwitchComponent';
-import { StyledUserButton, StyledButtonLink } from '../../media/styledComponents/Components';
+import { StyledUserButton } from '../../media/styledComponents/Components';
 import {getUsers} from "../../actions/user";
 import { connect } from 'react-redux';
 
@@ -20,6 +19,7 @@ class UsersContainer extends React.Component {
         };
 
         this.handleClick = this.handleClick.bind(this);
+        this.handleClickFab = this.handleClickFab.bind(this);
     }
 
     getUsers() {
@@ -48,8 +48,6 @@ class UsersContainer extends React.Component {
                 isLoaded: true,
             });
 
-            console.log(res);
-
             this.props.getUsers(res.data.data.users);
 
         }).catch((err) => {
@@ -60,6 +58,10 @@ class UsersContainer extends React.Component {
             });
         });
     }
+
+    handleClickFab = () => {
+        this.props.history.push("/user/create");
+    };
 
     handleClick = async (userId, request) => {
 
@@ -161,7 +163,11 @@ class UsersContainer extends React.Component {
             }];
 
             if(Object.keys(this.props.users).length) {
-                return <UsersComponent data={Object.values(this.props.users)} columns={columns} />;
+                return <UsersComponent
+                            data={Object.values(this.props.users)}
+                            columns={columns}
+                            handleClickFab={this.handleClickFab}
+                       />;
             }
             else {
                 return <h1>loading...</h1>
@@ -169,11 +175,6 @@ class UsersContainer extends React.Component {
         }
     }
 }
-
-// UsersContainer.propTypes = {
-//     data: PropTypes.object.isRequired,
-//     columns: PropTypes.object.isRequired
-// };
 
 const mapDispathcToProps = (dispatch) => {
 
@@ -185,6 +186,8 @@ const mapDispathcToProps = (dispatch) => {
 };
 
 const mapStateToProps = (state) => {
+
+    console.log(state)
 
     return {
         users: state.users

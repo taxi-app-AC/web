@@ -2,7 +2,6 @@ const initialState = {};
 
 const User = (state = initialState, action) => {
 
-    console.log(state)
     switch (action.type) {
         case 'GET_USERS':
             return {

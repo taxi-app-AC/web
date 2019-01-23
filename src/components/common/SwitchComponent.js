@@ -1,7 +1,6 @@
 import React from 'react';
 import Axios from 'axios';
 import Switch from '@material-ui/core/Switch';
-import LinearIndeterminate from './LinearIndeterminateComponent';
 
 class SwitchComponent extends React.Component {
 

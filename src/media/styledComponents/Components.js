@@ -2,6 +2,8 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import Grid from '@material-ui/core/Grid';
+
 
 // Header
 
@@ -18,10 +20,6 @@ export const StyledHeaderLink = styled(Link)`
 export const StyledForm = styled.form`
     width: ${props => props.styledProps.width || undefined};
     margin: ${props => props.styledProps.margin || undefined};
-`;
-
-export const StyledTextField = styled(TextField)`
-    width: 100%;
 `;
 
 export const StyledLoginButton = styled(Button)`
@@ -43,4 +41,24 @@ export const StyledButtonLink = styled(Link)`
      color: ${props => props.color || undefined};
         text-decoration: none;
     }
+`;
+
+// Components common tools
+
+export const ComponentLabel = styled.label`
+    margin-top: 20px;
+    font-size: 30px;
+    color: ${props => props.color || undefined}
+`;
+
+export const CreateButton = styled(Button)`
+    margin-bottom: 30px !important;
+`;
+
+export const StyledTextField = styled(TextField)`
+    width: 100%;
+`;
+
+export const StyledGrid = styled(Grid)`
+    margin: 0px 40px!important;
 `;

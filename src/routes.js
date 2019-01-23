@@ -8,6 +8,7 @@ import {
 
 import HomeContainer from './containers/home/HomeContainer';
 import UsersContainer from './containers/user/UsersContainer';
+import UserCreateContainer from './containers/user/UserCreateContainer';
 import UserContainer from './containers/user/UserContainer';
 import RequestsContainer from './containers/request/RequestsContainer';
 import LoginContainer from './containers/auth/LoginContainer';
@@ -45,6 +46,7 @@ const Routes = () => (
         <Switch>
             <PrivateRoute exact path='/' component={HomeContainer} />
             <PrivateRoute path='/users' component={UsersContainer} />
+            <PrivateRoute path='/user/create' component={UserCreateContainer} />
             <PrivateRoute path='/user/:id' component={UserContainer} />
             <PrivateRoute path='/request/:id/:accept' component={RequestsContainer} />
             <PrivateRoute path='/logout' component={LogoutContainer} />
