@@ -8,7 +8,7 @@ import {
 
 import HomeContainer from './containers/home/HomeContainer';
 import UsersContainer from './containers/user/UsersContainer';
-import UserCreateContainer from './containers/user/UserCreateContainer';
+import UserCreateContainer from './containers/user/RegisterContainer';
 import UserContainer from './containers/user/UserContainer';
 import RequestsContainer from './containers/request/RequestsContainer';
 import LoginContainer from './containers/auth/LoginContainer';

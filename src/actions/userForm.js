@@ -11,3 +11,4 @@ export const changeCategory = category => ({
 export const clearChanges = () => ({
    type: 'CLEAR_CHANGES'
 });
+

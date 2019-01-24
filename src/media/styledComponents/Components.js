@@ -43,7 +43,7 @@ export const StyledButtonLink = styled(Link)`
     }
 `;
 
-// Components common tools
+// Common Components
 
 export const ComponentLabel = styled.label`
     margin-top: 20px;
@@ -52,7 +52,7 @@ export const ComponentLabel = styled.label`
 `;
 
 export const CreateButton = styled(Button)`
-    margin-bottom: 30px !important;
+    margin-top: 30px !important;
 `;
 
 export const StyledTextField = styled(TextField)`
@@ -60,5 +60,6 @@ export const StyledTextField = styled(TextField)`
 `;
 
 export const StyledGrid = styled(Grid)`
-    margin: 0px 40px!important;
+    margin: 0px 40px !important;
+    text-align: left;
 `;
