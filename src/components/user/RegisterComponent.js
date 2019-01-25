@@ -1,21 +1,24 @@
 import React, { Fragment } from 'react';
 import Grid from '@material-ui/core/Grid';
 import MenuItem from '@material-ui/core/MenuItem';
+import Snackbar from '@material-ui/core/Snackbar';
+import SnackbarWrapper from '../common/Snackbar';
+import PropTypes from 'prop-types';
 
 import { ComponentLabel, StyledTextField, StyledGrid, CreateButton } from '../../media/styledComponents/Components';
 import  LinearIndeterminate from '../../components/common/LinearIndeterminateComponent';
-import {LabelColor} from "../../constants/Colors";
+import { SecondaryColor } from "../../constants/Colors";
 
 const RegisterComponent = (props) => {
 
     const active = [
         {
             value: 1,
-            label: 'active',
+            label: 'active'
         },
         {
             value: 0,
-            label: 'deactive',
+            label: 'deactive'
         }
     ];
 
@@ -32,10 +35,28 @@ const RegisterComponent = (props) => {
 
     return (
         <Fragment>
-            {props.isLoaded ? <LinearIndeterminate/> : ''}
+
+            {props.isLoaded ? <LinearIndeterminate /> : ''}
+
+            <Snackbar
+                anchorOrigin={{
+                    vertical: 'bottom',
+                    horizontal: 'left',
+                }}
+                open={props.openSnackbar}
+                autoHideDuration={3000}
+                onClose={props.handleCloseSnackbar.bind(this)}
+            >
+
+                <SnackbarWrapper
+                    variant="success"
+                    message="Succesfully registered!"
+                />
+            </Snackbar>
+
             <Grid container spacing={0}>
                 <StyledGrid item xs={2}>
-                    <ComponentLabel color={LabelColor}>Create User</ComponentLabel>
+                    <ComponentLabel color={SecondaryColor}>Create User</ComponentLabel>
                 </StyledGrid>
                 <StyledGrid item xs={12}>
                     <form
@@ -132,22 +153,7 @@ const RegisterComponent = (props) => {
     );
 };
 
-// const styles = theme => ({
-//     container: {
-//         display: 'flex',
-//         flexWrap: 'wrap',
-//     },
-//     textField: {
-//         marginLeft: theme.spacing.unit,
-//         marginRight: theme.spacing.unit,
-//         width: 200,
-//     },
-//     dense: {
-//         marginTop: 19,
-//     },
-//     menu: {
-//         width: 200,
-//     },
-// });
+RegisterComponent.propTypes = {
+};
 
 export default RegisterComponent;

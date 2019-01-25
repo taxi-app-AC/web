@@ -7,7 +7,7 @@ import AddIcon from '@material-ui/icons/Add';
 import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 
-import { LabelColor } from '../../constants/Colors';
+import { SecondaryColor } from '../../constants/Colors';
 import { ComponentLabel } from '../../media/styledComponents/Components';
 
 const UsersComponent = (props) => {
@@ -17,7 +17,7 @@ const UsersComponent = (props) => {
       <Fragment>
           <Grid container spacing={0}>
               <Grid item xs={2}>
-                  <ComponentLabel color={LabelColor}>Users</ComponentLabel>
+                  <ComponentLabel color={SecondaryColor}>Users</ComponentLabel>
                   <Fab
                       onClick={props.handleClickFab}
                       color="secondary"

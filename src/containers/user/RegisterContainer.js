@@ -22,13 +22,15 @@ class RegisterContainer extends React.Component {
                 error: false,
                 errorMessage: ''
             },
-            isLoaded: false
+            isLoaded: false,
+            openSnackbar: false
         };
 
         this.onSubmit = this.onSubmit.bind(this);
         this.handleChangeActive = this.handleChangeActive.bind(this);
         this.handleChangeCategory = this.handleChangeCategory.bind(this);
         this.handleInputChange = this.handleInputChange.bind(this);
+        this.handleCloseSnackbar = this.handleCloseSnackbar.bind(this);
     }
 
     handleChangeActive(e) {
@@ -63,13 +65,22 @@ class RegisterContainer extends React.Component {
         }
     }
 
+    handleCloseSnackbar(event, reason) {
+
+        if (reason === 'clickaway') {
+            return;
+        }
+
+        this.setState({ openSnackbar: false });
+
+        this.props.history.push("/users");
+    };
+
     onSubmit(e) {
 
         e.preventDefault();
 
-        this.setState({
-            isLoaded: true
-        });
+        this.setState({ isLoaded: true });
 
         let inputs = ['name', 'phone', 'password', 'active', 'category'];
         let errorsArr = {};
@@ -83,8 +94,13 @@ class RegisterContainer extends React.Component {
             if (value === '') {
                 errorsArr[input] = {
                         error: true,
-                        errorMessage: input + ' can\'t be empty'
+                        errorMessage: input + ' can\'t be empty.'
                     }
+            } else if (input === 'password' && value.length < 8) {
+                errorsArr[input] = {
+                    error: true,
+                    errorMessage: input + ' must be at least 8 characters.'
+                }
             }
         });
 
@@ -112,9 +128,13 @@ class RegisterContainer extends React.Component {
             Axios.post('http://localhost:3000/graphql', {
                 query: mutation
             }).then( response => {
-                console.log(response)
+
+                this.setState({
+                    openSnackbar: true,
+                    isLoaded: false,
+                })
             }).catch( error => {
-                console.log(error.response)
+
                 if(error.response.data.errors) {
 
                     error.response.data.errors.map( val => {
@@ -147,10 +167,12 @@ class RegisterContainer extends React.Component {
                 inputs={this.state}
                 userForm={this.props.userForm}
                 isLoaded={this.state.isLoaded}
+                openSnackbar={this.state.openSnackbar}
+                onSubmit={this.onSubmit}
                 handleChangeActive={this.handleChangeActive}
                 handleChangeCategory={this.handleChangeCategory}
                 handleInputChange={this.handleInputChange}
-                onSubmit={this.onSubmit}
+                handleCloseSnackbar={this.handleCloseSnackbar}
             />
         );
     }
@@ -158,7 +180,6 @@ class RegisterContainer extends React.Component {
 
 const mapStateToProps = (state) => {
 
-    console.log(state)
     return {
         userForm: {
             active: state.userForm.active,
