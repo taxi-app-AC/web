@@ -61,6 +61,7 @@ const RegisterComponent = (props) => {
                 <StyledGrid item xs={12}>
                     <form
                         onSubmit={props.onSubmit}
+                        encType="multipart/form-data"
                     >
                         <Grid container spacing={24}>
                             <Grid item xs={4}>
@@ -137,6 +138,31 @@ const RegisterComponent = (props) => {
                                         </MenuItem>
                                     ))}
                                 </StyledTextField>
+                            </Grid>
+                            <Grid item xs={4}>
+                                <Grid container spacing={24}>
+                                    <Grid item xs={6}>
+                                        <StyledTextField
+                                            type='file'
+                                            name='driverImage'
+                                            label='Drive Image'
+                                            InputLabelProps={{
+                                                shrink: true,
+                                            }}
+                                        />
+
+                                    </Grid>
+                                    <Grid item xs={6}>
+                                        <StyledTextField
+                                            type='file'
+                                            name='driverLicenseImage'
+                                            label='Driver license image'
+                                            InputLabelProps={{
+                                                shrink: true,
+                                            }}
+                                        />
+                                    </Grid>
+                                </Grid>
                             </Grid>
                         </Grid>
                         <CreateButton

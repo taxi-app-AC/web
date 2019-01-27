@@ -80,6 +80,8 @@ class RegisterContainer extends React.Component {
 
         e.preventDefault();
 
+        // console.log(e.target.querySelector(`input[name=driverImage]`))
+
         this.setState({ isLoaded: true });
 
         let inputs = ['name', 'phone', 'password', 'active', 'category'];
